@@ -208,6 +208,7 @@ systemctl restart sshd
 
 ## set up admin user -----------------------------------------------------------
 log_info "add admin user: ${admin_user}"
+groupadd ${admin_user}
 useradd -g ${admin_user} --home-dir /home/${admin_user} --create-home --shell /bin/bash ${admin_user}
 usermod -aG sudo ${admin_user}
 usermod -aG docker ${admin_user}
@@ -237,7 +238,7 @@ ssh-keygen -P "" -t rsa -C "${dev_user}@${org}" -f /home/${dev_user}/.ssh/id_rsa
 cat /home/${dev_user}/.ssh/id_rsa.pub >> /home/${dev_user}/.ssh/authorized_keys
 chown -R ${dev_user}:${dev_user} /home/${dev_user}/.ssh
 
-apt autoremove
+#apt autoremove
 
 # set up root ca
 log_block "set up root CA"
